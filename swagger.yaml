@@ -27,7 +27,7 @@ paths:
       summary: "Authenticate user and return token"
       consumes:
         - application/json
-      description: ""
+      description: "This endpoint authenticates user and returns a token"
       operationId: "loginUser"
       produces:
         - "application/json"
