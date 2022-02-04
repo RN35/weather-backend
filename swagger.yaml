@@ -50,7 +50,7 @@ paths:
       tags:
         - "user"
       summary: "Returns current temperature"
-      description: ""
+      description: "This endpoint mocks openweather api"
       operationId: "getWeather"
       produces:
         - "application/json"
