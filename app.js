@@ -38,7 +38,7 @@ function get_weather(request, response) {
     const authHeader = request.headers['authorization']
     const token = authHeader && authHeader.split(' ')[1]
 
-    if (token == null) return res.sendStatus(401)
+    if (token == null) return response.sendStatus(401)
 
     if (token == jwt_token) {
         response.json({ "coord": { "lon": -123.262, "lat": 44.5646 }, "weather": [{ "id": 801, "main": "Clouds", "description": "few clouds", "icon": "02n" }], "base": "stations", "main": { "temp": 58, "feels_like": 49.98, "temp_min": 48.09, "temp_max": 55.45, "pressure": 1023, "humidity": 78 }, "visibility": 10000, "wind": { "speed": 0, "deg": 0 }, "clouds": { "all": 20 }, "dt": 1641958461, "sys": { "type": 2, "id": 2040223, "country": "US", "sunrise": 1641916079, "sunset": 1641948820 }, "timezone": -28800, "id": 5720727, "name": "Corvallis", "cod": 200 })
