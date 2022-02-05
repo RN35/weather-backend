@@ -1,13 +1,10 @@
 "use strict"
 
-// var express = require('express')
-// var app = express()
-
 const express = require("express");
 const bodyParser = require("body-parser");
-// const router = express.Router();
-const app = express();
 
+const app = express();
+const jwt_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
 app.listen(3000)
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -34,6 +31,7 @@ app.use(function (req, res, next) {
     next();
 });
 
+
 app.get('/v1/weather', get_weather)
 
 function get_weather(request, response) {
@@ -48,14 +46,15 @@ function get_greeting(request, response) {
     })
 }
 
-app.post('/v1/auth', login_user)
-
-function login_user(request, response) {
-    var username = request.body.username;
-    var password = request.body.password;
-    // response.send(request.body);
-    console.log('body is ', request.body);
+app.post('/v1/auth', (request, response) => {
+    const username = request.body.username;
+    const password = request.body.password;
+    // Authenticate User
+    // Create jwt token 
     response.json({
-        "token": "a_very_secret_token_for_" + username
+        "access-token": jwt_token,
+        "expires": "2012-04-23T18:25:43.511Z"
     })
-}
+
+
+})
