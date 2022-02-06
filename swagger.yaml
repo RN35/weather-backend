@@ -1,150 +1,180 @@
-swagger: "2.0"
+openapi: 3.0.0
 info:
-  description: "This is a swagger documentation for mock endpoints created using express.js as part of the assignment"
-  version: "1.0.0"
+  description:
+    This is a swagger documentation for mock endpoints created using express.js
+    as part of the assignment
+  version: 1.0.0
   title: "CS 561: Assignment 4 mock API"
-  termsOfService: "http://swagger.io/terms/"
+  termsOfService: http://swagger.io/terms/
   contact:
-    email: "apiteam@swagger.io"
+    email: apiteam@swagger.io
   license:
-    name: "Apache 2.0"
-    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
-host: "localhost:3000"
-basePath: "/v1"
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
 tags:
-  - name: "user"
-    description: "Operations about user"
+  - name: user
+    description: Operations about user
     externalDocs:
-      description: "Find out more about our store"
-      url: "http://swagger.io"
-schemes:
-  - "http"
+      description: Find out more about our store
+      url: http://swagger.io
 paths:
   /auth:
     post:
       tags:
-        - "user"
-      summary: "Authenticate user and return token"
-      consumes:
-        - application/json
-      description: "This endpoint authenticates user and returns a token"
-      operationId: "loginUser"
-      produces:
-        - "application/json"
-      parameters:
-        - in: "body"
-          name: "body"
-          description: "The user to login"
-          required: true
-          schema:
-            $ref: "#/definitions/User"
+        - user
+      summary: Authenticate user and return token
+      description: ""
+      operationId: loginUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+        description: The user to login
+        required: true
       responses:
         "200":
-          description: "successful operation"
-          examples:
+          description: successful operation
+          content:
             application/json:
-              token: a_very_secret_token_for_string
-
+              examples:
+                response:
+                  value:
+                    access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+                    expires: "2012-04-23T18:25:43.511Z"
   /weather:
     get:
       tags:
-        - "user"
-      summary: "Returns current temperature"
-      description: "This endpoint mocks openweather api"
-      operationId: "getWeather"
-      produces:
-        - "application/json"
+        - user
+      summary: Returns current temperature
+      description: ""
+      operationId: getWeather
       parameters:
-        - name: "q"
-          in: "query"
-          description: "City name, state code and country code divided by comma, Please, refer to ISO 3166 for the state codes or country codes. You can specify the parameter not only in English. In this case, the API response should be returned in the same language as the language of requested location name if the location is in our predefined list of more than 200,000 locations."
+        - name: q
+          in: query
+          description:
+            City name, state code and country code divided by comma, Please,
+            refer to ISO 3166 for the state codes or country codes. You can
+            specify the parameter not only in English. In this case, the API
+            response should be returned in the same language as the language of
+            requested location name if the location is in our predefined list of
+            more than 200,000 locations.
           required: true
-          type: "string"
-        - name: "appid"
-          in: "query"
-          description: "Your unique API key"
+          schema:
+            type: string
+        - name: appid
+          in: query
+          description: Your unique API key
           required: true
-          type: "string"
-        - name: "mode"
-          in: "query"
-          description: "Response format. Possible values are xml and html. If you don't use the mode parameter format is JSON by default."
+          schema:
+            type: string
+        - name: mode
+          in: query
+          description:
+            Response format. Possible values are xml and html. If you don't use
+            the mode parameter format is JSON by default.
           required: false
-          type: "string"
-        - name: "units"
-          in: "query"
-          description: "Units of measurement. standard, metric and imperial units are available. If you do not use the units parameter, standard units will be applied by default."
+          schema:
+            type: string
+        - name: units
+          in: query
+          description:
+            Units of measurement. standard, metric and imperial units are
+            available. If you do not use the units parameter, standard units
+            will be applied by default.
           required: false
-          type: "string"
-        - name: "lang"
-          in: "query"
-          description: "You can use this parameter to get the output in your language."
+          schema:
+            type: string
+        - name: lang
+          in: query
+          description: You can use this parameter to get the output in your language.
           required: false
-          type: "string"
+          schema:
+            type: string
+      security:
+        - bearerAuth: []
       responses:
         "200":
-          description: "successful operation"
-          examples:
+          description: successful operation
+          content:
             application/json:
-              coord:
-                lon: -123.262
-                lat: 44.5646
-              weather:
-                - id: 804
-                  main: Clouds
-                  description: overcast clouds
-                  icon: 04n
-              base: stations
-              main:
-                temp: 276.68
-                feels_like: 276.68
-                temp_min: 274.68
-                temp_max: 281.83
-                pressure: 1022
-                humidity: 86
-              visibility: 10000
-              wind:
-                speed: 0.79
-                deg: 300
-                gust: 0.77
-              clouds:
-                all: 85
-              dt: 1643514653
-              sys:
-                type: 2
-                id: 2040223
-                country: US
-                sunrise: 1643470496
-                sunset: 1643505438
-              timezone: -28800
-              id: 5720727
-              name: Corvallis
-              cod: 200
+              examples:
+                response:
+                  value:
+                    coord:
+                      lon: -123.262
+                      lat: 44.5646
+                    weather:
+                      - id: 804
+                        main: Clouds
+                        description: overcast clouds
+                        icon: 04n
+                    base: stations
+                    main:
+                      temp: 276.68
+                      feels_like: 276.68
+                      temp_min: 274.68
+                      temp_max: 281.83
+                      pressure: 1022
+                      humidity: 86
+                    visibility: 10000
+                    wind:
+                      speed: 0.79
+                      deg: 300
+                      gust: 0.77
+                    clouds:
+                      all: 85
+                    dt: 1643514653
+                    sys:
+                      type: 2
+                      id: 2040223
+                      country: US
+                      sunrise: 1643470496
+                      sunset: 1643505438
+                    timezone: -28800
+                    id: 5720727
+                    name: Corvallis
+                    cod: 200
         "400":
-          description: "Invalid q/appid"
+          description: Invalid q/appid
   /hello:
     get:
       tags:
-        - "user"
-      summary: "Returns a random greeting"
+        - user
+      summary: Returns a random greeting
       description: ""
-      operationId: "getGreeting"
-      produces:
-        - "application/json"
-      parameters: []
+      operationId: getGreeting
+
+      security:
+        - bearerAuth: []
       responses:
         "200":
-          description: "successful operation"
-          examples:
+          description: successful operation
+          content:
             application/json:
-              message: Good morning
-definitions:
-  User:
-    type: "object"
-    properties:
-      username:
-        type: "string"
-      password:
-        type: "string"
+              examples:
+                response:
+                  value:
+                    message: Good morning
+        "403":
+          description: You do not have necessary permissions for the resource
+
 externalDocs:
-  description: "Find out more about Swagger"
-  url: "http://swagger.io"
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+  - url: http://44.202.0.196:3000/v1
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+  securitySchemes:
+    bearerAuth: # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
