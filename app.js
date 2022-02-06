@@ -5,10 +5,14 @@ const bodyParser = require("body-parser");
 
 const app = express();
 const jwt_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+
+const pathToSwaggerUi = "/home/ec2-user/swagger-ui/dist"
+app.use(express.static(pathToSwaggerUi))
 app.listen(3000)
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 console.log('Node. js Express server is running on port 3000... ')
+
 
 app.use(function (request, response, next) {
     // Website you wish to allow to connect
@@ -21,7 +25,8 @@ app.use(function (request, response, next) {
     response.setHeader('Access-Control-Allow-Methods', 'GET, POST');
 
     // Request headers you wish to allow
-    response.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+    response.setHeader('Access-Control-Allow-Headers', 'Authorization', 'X-Requested-With,content-type');
+
 
     // Set to true if you need the website to include cookies in the requests sent
     // to the API (e.g. in case you use sessions)
@@ -75,7 +80,7 @@ app.post('/v1/auth', (request, response) => {
     // Authenticate User
     // Create jwt token 
     response.json({
-        "access-token": jwt_token,
+        "access_token": jwt_token,
         "expires": "2012-04-23T18:25:43.511Z"
     })
 
